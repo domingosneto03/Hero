@@ -10,6 +10,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class Game {
+
+    boolean GameRunning = true;
     private Screen screen;
 
     private int x = 10;
@@ -38,7 +40,7 @@ public class Game {
 
     }
 
-    private void processKey(KeyStroke key) {
+    private void processKey(KeyStroke key) throws IOException {
         switch(key.getKeyType()) {
             case ArrowUp:
                 y--;
@@ -52,11 +54,21 @@ public class Game {
             case ArrowLeft:
                 x--;
                 break;
+            case EOF:
+                GameRunning = false;
+                break;
+            case Character:
+                switch(key.getCharacter()) {
+                    case 'q':
+                        screen.close();
+                        GameRunning = false;
+                        break;
+                }
         }
     }
 
     public void run() throws IOException {
-        while(true) {
+        while(GameRunning) {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
