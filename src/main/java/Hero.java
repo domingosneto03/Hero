@@ -5,6 +5,35 @@ public class Hero {
     public Hero(int x, int y){
         this.x = x;
         this.y = y;
-        Hero hero = new Hero(10,10);
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void moveUp(){
+        y--;
+    }
+    public void moveDown(){
+        y++;
+    }
+    public void moveRight(){
+        x++;
+    }
+    public void moveLeft(){
+        x--;
+    }
+
 }

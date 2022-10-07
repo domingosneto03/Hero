@@ -14,8 +14,7 @@ public class Game {
     boolean GameRunning = true;
     private Screen screen;
 
-    private int x = 10;
-    private int y = 10;
+     Hero hero = new Hero(10,10);
     public Game() {
         try {
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -35,7 +34,7 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        screen.setCharacter(hero.getX(), hero.getY(), TextCharacter.fromCharacter('X')[0]);
         screen.refresh();
 
     }
@@ -43,16 +42,16 @@ public class Game {
     private void processKey(KeyStroke key) throws IOException {
         switch(key.getKeyType()) {
             case ArrowUp:
-                y--;
+                hero.moveUp();
                 break;
             case ArrowDown:
-                y++;
+                hero.moveDown();
                 break;
             case ArrowRight:
-                x++;
+                hero.moveRight();
                 break;
             case ArrowLeft:
-                x--;
+                hero.moveLeft();
                 break;
             case EOF:
                 GameRunning = false;
