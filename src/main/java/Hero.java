@@ -8,8 +8,7 @@ public class Hero {
         this.position = new Position(x,y);
     }
     public void setPosition(Position position) {
-        position.setX(position.getX());
-        position.setY(position.getY());
+        this.position = position;
     }
 
     public Position moveUp(){
