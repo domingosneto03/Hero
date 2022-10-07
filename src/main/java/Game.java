@@ -13,8 +13,11 @@ public class Game {
 
     boolean GameRunning = true;
     private Screen screen;
+    private void moveHero(Position position){
+        hero.setPosition(position);
+    }
 
-     Hero hero = new Hero(10,10);
+    Hero hero = new Hero(10,10);
     public Game() {
         try {
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -42,16 +45,16 @@ public class Game {
     private void processKey(KeyStroke key) throws IOException {
         switch(key.getKeyType()) {
             case ArrowUp:
-                hero.moveUp();
+                moveHero(hero.moveUp());
                 break;
             case ArrowDown:
-                hero.moveDown();
+                moveHero(hero.moveDown());
                 break;
             case ArrowRight:
-                hero.moveRight();
+                moveHero(hero.moveRight());
                 break;
             case ArrowLeft:
-                hero.moveLeft();
+                moveHero(hero.moveLeft());
                 break;
             case EOF:
                 GameRunning = false;
