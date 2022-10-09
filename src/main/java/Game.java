@@ -13,13 +13,13 @@ public class Game {
 
     boolean GameRunning = true;
     private Screen screen;
-    private void moveHero(Position position){
-        hero.setPosition(position);
-    }
 
-    Hero hero = new Hero(10,10);
+    private Arena arena;
+
+
     public Game() {
         try {
+            arena = new Arena(40,20);
             TerminalSize terminalSize = new TerminalSize(40, 20);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
@@ -37,36 +37,13 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);
+        arena.draw(screen);
         screen.refresh();
 
     }
 
     private void processKey(KeyStroke key) throws IOException {
-        switch(key.getKeyType()) {
-            case ArrowUp:
-                moveHero(hero.moveUp());
-                break;
-            case ArrowDown:
-                moveHero(hero.moveDown());
-                break;
-            case ArrowRight:
-                moveHero(hero.moveRight());
-                break;
-            case ArrowLeft:
-                moveHero(hero.moveLeft());
-                break;
-            case EOF:
-                GameRunning = false;
-                break;
-            case Character:
-                switch(key.getCharacter()) {
-                    case 'q':
-                        screen.close();
-                        GameRunning = false;
-                        break;
-                }
-        }
+        arena.processKey(key);
     }
 
     public void run() throws IOException {
@@ -74,6 +51,18 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
+            switch(key.getKeyType()) {
+                case EOF:
+                    GameRunning = false;
+                    break;
+                case Character:
+                    switch(key.getCharacter()) {
+                        case 'q':
+                            screen.close();
+                            GameRunning = false;
+                            break;
+                    }
+            }
         }
 
     }
