@@ -15,7 +15,7 @@ public class Wall {
     public Position getPosition() {
         return position;
     }
-    
+
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#DE3163"));
         graphics.enableModifiers(SGR.BOLD);
