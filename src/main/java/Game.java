@@ -16,7 +16,6 @@ public class Game {
 
     boolean GameRunning = true;
     private Screen screen;
-
     private Arena arena;
 
 

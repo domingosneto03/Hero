@@ -8,21 +8,39 @@ import com.googlecode.lanterna.screen.Screen;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arena {
     private int width;
     private int height;
     private Hero hero;
+    private List<Wall> walls;
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
         hero = new Hero(10, 10);
+        this.walls = createWalls();
 
+    }
+    private List<Wall> createWalls() {
+        List<Wall> walls = new ArrayList<>();
+        for (int c = 0; c < width; c++) {
+            walls.add(new Wall(c, 0));
+            walls.add(new Wall(c, height - 1));
+        }
+        for (int r = 1; r < height - 1; r++) {
+            walls.add(new Wall(0, r));
+            walls.add(new Wall(width - 1, r));
+        }
+        return walls;
     }
 
     private boolean canHeroMove(Position position) {
-        if(position.getX() < width && position.getY() < height) return true;
+        for(Wall wall : walls){
+            if(wall.getPosition().equals(position)) return true;
+        }
         return false;
     }
     private void moveHero(Position position) {
@@ -46,6 +64,9 @@ public class Arena {
         }
     }
     public void draw(TextGraphics graphics) {
+        for(Wall wall : walls){
+            wall.draw(graphics);
+        }
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         this.hero.draw(graphics);
