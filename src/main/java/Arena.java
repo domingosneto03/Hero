@@ -1,4 +1,8 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 
@@ -14,6 +18,7 @@ public class Arena {
         this.width = width;
         this.height = height;
         hero = new Hero(10, 10);
+
     }
 
     private boolean canHeroMove(Position position) {
@@ -24,7 +29,7 @@ public class Arena {
         if(canHeroMove(position)) hero.setPosition(position);
     }
 
-    public void processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
@@ -40,7 +45,9 @@ public class Arena {
                 break;
         }
     }
-    public void draw(Screen screen) {
-        screen.setCharacter(hero.getPosition().getX(), hero.getPosition().getY(), TextCharacter.fromCharacter('X')[0]);
+    public void draw(TextGraphics graphics) {
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        this.hero.draw(graphics);
     }
 }
