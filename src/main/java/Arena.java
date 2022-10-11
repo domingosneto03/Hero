@@ -50,6 +50,14 @@ public class Arena {
         return coins;
     }
 
+    private void retrieveCoins(){
+        for(Coin coin : coins)
+            if(hero.getPosition().equals(coin.getPosition())){
+                coins.remove(coin);
+                break;
+            }
+    }
+
     private boolean canHeroMove(Position position) {
         for(Wall wall : walls){
             if(wall.getPosition().equals(position)) return false;
@@ -75,7 +83,7 @@ public class Arena {
             case ArrowLeft:
                 moveHero(hero.moveLeft());
                 break;
-        }
+        }retrieveCoins();
     }
     public void draw(TextGraphics graphics) {
 
