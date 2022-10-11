@@ -53,17 +53,19 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
-            switch(key.getKeyType()) {
-                case EOF:
+            KeyType keyType = key.getKeyType();
+            if (keyType == KeyType.EOF) {
+                GameRunning = false;
+            } else if (keyType == KeyType.Character) {
+                if (key.getCharacter() == 'q') {
+                    screen.close();
                     GameRunning = false;
-                    break;
-                case Character:
-                    switch(key.getCharacter()) {
-                        case 'q':
-                            screen.close();
-                            GameRunning = false;
-                            break;
-                    }
+                }
+            }
+            arena.moveMonsters();
+            if(arena.verifyMonsterCollisions()){
+                screen.close();
+                break;
             }
         }
 
