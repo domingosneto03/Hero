@@ -4,7 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 abstract class Element {
-    private Position position;
+    protected Position position;
 
     public Element(int x, int y){
         this.position = new Position(x,y);
@@ -20,3 +20,4 @@ abstract class Element {
 
     abstract void draw(TextGraphics graphics);
 }
+

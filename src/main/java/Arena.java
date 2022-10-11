@@ -59,12 +59,7 @@ public class Arena {
     private void moveHero(Position position) {
         if(canHeroMove(position)) hero.setPosition(position);
     }
-    private boolean whereCoin(Position position){
-        for(Coin coin : coins){
-            if(coin.getPosition().equals(position)) return false;
-        }
-        return true;
-    }
+
 
     public void processKey(KeyStroke key) {
         switch (key.getKeyType()) {
@@ -87,12 +82,9 @@ public class Arena {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         hero.draw(graphics);
-        for(Wall wall : walls){
+        for(Wall wall : walls)
             wall.draw(graphics);
-        } if(whereCoin(hero.getPosition())){
-            for(Coin coin : coins){
-                coin.draw(graphics);
-            }
-        }
+        for(Coin coin : coins)
+            coin.draw(graphics);
     }
 }
